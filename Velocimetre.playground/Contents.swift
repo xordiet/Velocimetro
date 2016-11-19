@@ -14,44 +14,40 @@ enum Velocidades : Int {
 //clase
 class Auto {
 
-    var velocidad : Velocidades?
+    var velocidad = Velocidades.Apagado
     
-    init (velocidad: Velocidades){
-        self.velocidad = .Apagado
+    init (){
+        self.velocidad = Velocidades.Apagado
     }
     
-    func cambioDeVelocidad( previa:Velocidades ) -> ( actual : Int, velocidadEnCadena: String){
-        var actual:Velocidades?
+    func cambioDeVelocidad() -> ( actual : Int, velocidadEnCadena: String){
         var velocidadEnCadena:String?
-        switch previa.rawValue {
-        case 0:
-            actual = Velocidades.Apagado
+        let actual = velocidad.rawValue
+        
+        switch velocidad {
+        case .Apagado:
             velocidadEnCadena = "Apagado"
-            velocidad = Velocidades.VelocidadBaja
-        case 20:
-            actual = Velocidades.VelocidadBaja
+            velocidad = .VelocidadBaja
+        case .VelocidadBaja:
             velocidadEnCadena = "Velocidad Baja"
-            velocidad = Velocidades.VelocidadMedia
-        case 50:
-            actual = Velocidades.VelocidadMedia
+            velocidad = .VelocidadMedia
+        case .VelocidadMedia:
             velocidadEnCadena = "Velocidad Media"
-            velocidad = Velocidades.VelocidadAlta
-        case 120:
-            actual = Velocidades.VelocidadAlta
+            velocidad = .VelocidadAlta
+        case .VelocidadAlta:
             velocidadEnCadena = "Velocidad Alta"
-            velocidad = Velocidades.VelocidadMedia
-        default:
-            actual = Velocidades.Apagado
-            velocidadEnCadena = "Apagado"
+            velocidad = .VelocidadMedia
         }
-        return ( actual!.rawValue, velocidadEnCadena!)
+        return (actual, velocidadEnCadena!)
+
     }
     
 }
 
-//Creo instancia de Auto y lo inicializo como apagado
-var auto = Auto(velocidad : Velocidades.Apagado)
+//Creo instancia de Auto
+var auto = Auto()
 
 for conteo in 1...20{
-    print (auto.cambioDeVelocidad(previa: auto.velocidad!))
+    let corre = auto.cambioDeVelocidad()
+    print("\(corre.actual), \(corre.velocidadEnCadena)")
 }
